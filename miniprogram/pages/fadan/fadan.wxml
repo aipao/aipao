@@ -2,9 +2,9 @@
     <view class="page__bd">
         <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">错误提示</view>
         <view class="weui-cells weui-cells_after-title">
-            <checkbox-group bindchange="checkboxChange">
+            <radio-group bindchange="checkboxChange">
                 <label class="weui-cell weui-check__label" wx:for="{{checkboxItems}}" wx:key="value">
-                    <checkbox class="weui-check" value="{{item.value}}" checked="{{item.checked}}"/>
+                    <radio  class="weui-check" value="{{item.value}}" data-id="{{item.value}}" checked="{{item.checked}}"/>
 
                     <view class="weui-cell__hd weui-check__hd_in-checkbox">
                         <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.checked}}"></icon>
@@ -12,7 +12,7 @@
                     </view>
                     <view class="weui-cell__bd">{{item.name}}</view>
                 </label>
-            </checkbox-group>
+            </radio-group>
         </view>
 
         <view class="weui-cells__title">个人信息</view>
@@ -22,7 +22,7 @@
                     <view class="weui-label">宿舍楼号：</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <input class="weui-input" placeholder="例如：5号楼"/>
+                    <input class="weui-input" name="dormitory" bindtap="dormitoryInput" placeholder="例如：5号楼"/>
                 </view>
             </view>
             <view class="weui-cell weui-cell_input">
@@ -30,7 +30,7 @@
                     <view class="weui-label">区：</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <input class="weui-input" placeholder="如果不分区请写“无”"/>
+                    <input class="weui-input" name="district" bindinput="districtInput" placeholder="如果不分区请写“无”"/>
                 </view>
             </view>
             <view class="weui-cell weui-cell_input">
@@ -38,7 +38,7 @@
                     <view class="weui-label">宿舍号：</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <input class="weui-input" placeholder="请输入宿舍号"/>
+                    <input class="weui-input" name="dormnumber" bindinput="dormnumberInput" placeholder="请输入宿舍号"/>
                 </view>
             </view>
             <view class="weui-cell weui-cell_input">
@@ -46,7 +46,7 @@
                     <view class="weui-label">联系电话：</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <input class="weui-input" placeholder="请输入联系电话"/>
+                    <input class="weui-input" name="reserve_telephone" bindinput="reserve_telephoneInput" placeholder="请输入联系电话"/>
                 </view>
             </view>
             <view class="weui-cell weui-cell_input">
@@ -54,7 +54,7 @@
                     <view class="weui-label">预留姓名：</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <input class="weui-input" placeholder="预留姓名"/>
+                    <input class="weui-input" name="name" bindinput="nameInput" placeholder="预留姓名"/>
                 </view>
             </view>
             <view class="weui-cell weui-cell_input">
@@ -62,20 +62,20 @@
                     <view class="weui-label">预留电话：</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <input class="weui-input" placeholder="预留电话"/>
+                    <input class="weui-input" name="telephone" bindinput="telephoneInput" placeholder="预留电话"/>
                 </view>
             </view>
         </view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <view class="weui-cell__bd">
-                    <textarea class="weui-textarea" placeholder="请粘贴取快递短信信息(请不要再开头的文字前面输入空格，不然会影响对地址的判断结果)" style="height: 3.3em" />
+                    <textarea class="weui-textarea" name="content" bindinput="contentInput" placeholder="请粘贴取快递短信信息(请不要再开头的文字前面输入空格，不然会影响对地址的判断结果)" style="height: 3.3em" />
                     <view class="weui-textarea-counter">0/200</view>
                 </view>
             </view>
         </view>
         <view class="weui-btn-area">
-            <button class="weui-btn" type="primary" bindtap="showTopTips">提交</button>
+            <button class="weui-btn" type="primary" bindtap="tijiao">提交</button>
         </view>
     </view>
 </view>
