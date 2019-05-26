@@ -42,6 +42,7 @@ exports.main = async (event, context) => {
         state: state,
         openid: openid,
 
+        createdate:new Date(),
         wx_nickname: wx_nickname
       }
     })

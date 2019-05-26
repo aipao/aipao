@@ -162,7 +162,7 @@ Page({
 
     
       
-    //fadan(campus, dormitory, district, dormnumber, reserve_telephone, name, telephone, content);
+    fadan(campus, dormitory, district, dormnumber, reserve_telephone, name, telephone, content);
     console.log("-------------" + campus);
     console.log("-------------" + dormitory);
     console.log("-------------" + district);

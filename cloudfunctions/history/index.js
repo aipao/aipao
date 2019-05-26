@@ -11,12 +11,12 @@ exports.main = async (event, context) => {
   // where 方法传入一个对象，数据库返回集合中字段等于指定值的 JSON 文档。API 也支持高级的查询条件（比如大于、小于、in 等），具体见文档查看支持列表
   // get 方法会触发网络请求，往数据库取数据 
   try {
-    return await db.collection('yb_expressinformation').get({
-      success: function (res) {
-        // return res
-      }
-    });
+    var que = await db.collection('yb_expressinformation').where({
+      openid: event.openid
+    }).get();
+    return que.data
   } catch (e) {
-    console.error(e);
+    console.log(e)
+    return { no: 'no result' }
   }
 }
