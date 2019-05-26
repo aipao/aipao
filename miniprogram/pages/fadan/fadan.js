@@ -1,3 +1,4 @@
+const app = getApp()
 Page({
   data: {
     showTopTips: false,
@@ -92,8 +93,85 @@ Page({
     })
   },
   tijiao: function () {
-    console.log("校区"+this.data.campus+"宿舍楼号" + this.data.dormitory + "区" + this.data.district + "宿舍号" + this.data.dormnumber+"联系电话"+this.data.reserve_telephone+"预留姓名"+this.data.name+"预留电话"+this.data.telephone+"内容"+this.data.content )
-    wx.showModal({
+    var campus = this.data.campus;//校区
+    var dormitory = this.data.dormitory;//宿舍楼号
+    var district = this.data.district;//区
+    var dormnumber = this.data.dormnumber;//宿舍号
+    var reserve_telephone = this.data.reserve_telephone;//联系电话
+
+    var name = this.data.name;//预留姓名
+    var telephone = this.data.telephone;//预留电话
+    var content = this.data.content;//内容
+    var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+    if (parseInt(campus)<0){//这里有默认值，判断不了需要改
+      wx.showToast({
+        icon: 'none',
+        title: '选择校区',
+      })
+      return;
+    }
+    if (dormitory == '') {
+      wx.showToast({
+        icon: 'none',
+        title: '输入宿舍楼号',
+      })
+      return;
+    }
+    if (district == '') {
+      wx.showToast({
+        icon: 'none',
+        title: '输入区号',
+      })
+      return;
+    }
+    if (dormnumber == '') {
+      wx.showToast({
+        icon: 'none',
+        title: '输入宿舍门牌号',
+      })
+      return;
+    }
+    if (reserve_telephone == '' || !myreg.test(reserve_telephone)) {
+      wx.showToast({
+        icon: 'none',
+        title: '输入正确的联系电话',
+      })
+      return;
+    }
+    if (name == '') {
+      wx.showToast({
+        icon: 'none',
+        title: '输入预留姓名',
+      })
+      return;
+    }
+    if (telephone == '' || !myreg.test(telephone)) {
+      wx.showToast({
+        icon: 'none',
+        title: '输入正确的预留电话号',
+      })
+      return;
+    }
+    if (content == '') {
+      wx.showToast({
+        icon: 'none',
+        title: '输入快递短信内容',
+      })
+      return;
+    }
+
+    
+      
+    //fadan(campus, dormitory, district, dormnumber, reserve_telephone, name, telephone, content);
+    console.log("-------------" + campus);
+    console.log("-------------" + dormitory);
+    console.log("-------------" + district);
+    console.log("-------------" + dormnumber);
+    console.log("-------------" + reserve_telephone);
+    console.log("-------------" + name);
+    console.log("-------------" + telephone);
+    console.log("-------------" + content);
+    /*wx.showModal({
       content: '弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行内',
       showCancel: false,
       success: function (res) {
@@ -101,7 +179,49 @@ Page({
           console.log('用户点击确定')
         }
       }
-    });
+    });*/
   },
   
 });
+function fadan(campus, dormitory, district, dormnumber, reserve_telephone, name, telephone, content) {
+  var state = 0;//单状态
+  var openid = app.globalData.openid;//openId
+  var wx_nickname = app.globalData.userInfo.nickName;
+  wx.cloud.callFunction({
+    name: 'fadan',
+    data: {
+      campus: campus,
+      dormitory: dormitory,
+      district: district,
+      dormnumber: dormnumber,
+      reserve_telephone: reserve_telephone,
+
+      name: name,
+      telephone: telephone,
+      content: content,
+      state: state,
+      openid: openid,
+
+      wx_nickname: wx_nickname
+    },
+    success: res => {
+       wx.showModal({
+      content: '发单成功，请耐心等待接单',
+      showCancel: false,
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+        }
+      }
+    });
+      console.log('返回值' + JSON.stringify(res.result));
+    },
+    fail: err => {
+      wx.showToast({
+        icon: 'none',
+        title: '提交失败，稍后再试',
+      })
+      console.error('[云函数] [sum] 调用失败：', err)
+    }
+  })
+}

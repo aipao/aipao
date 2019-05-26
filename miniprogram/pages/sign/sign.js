@@ -181,7 +181,7 @@ Page({
           },
           success: function (res) {
             //返回openid
-            console.log(res.data.openid)
+            console.log("oooooooooooopenid"+res.data.openid)
             //向数据库注册用户，验证用户
             var that = this;
             wx.request({
