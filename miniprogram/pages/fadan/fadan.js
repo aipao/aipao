@@ -2,11 +2,11 @@ Page({
   data: {
     showTopTips: false,
     campus: "1",
-    name: "",
     dormitory: "",
     district: "",
     dormnumber:"",
     telephone:"",
+    name: "",
     reserve_telephone: "",
     content: "",
 
@@ -35,6 +35,7 @@ Page({
     })
     console.log(e.detail.value)
   },
+  
   checkboxChange: function (e) {
     console.log('checkbox发生change事件，携带value值为：', e.detail.value);
     var checkboxItems = this.data.checkboxItems, values = e.detail.value;
@@ -55,7 +56,43 @@ Page({
     });
     console.log(this.data.campus)
   },
+  dormitoryInput: function (e) {
+    this.setData({
+      dormitory: e.detail.value
+    })
+  },
+  districtInput: function (e) {
+    this.setData({
+      district: e.detail.value
+    })
+  },
+  dormnumberInput: function (e) {
+    this.setData({
+      dormnumber: e.detail.value
+    })
+  },
+  telephoneInput: function (e) {
+    this.setData({
+      telephone: e.detail.value
+    })
+  },
+  nameInput: function (e) {
+    this.setData({
+      name: e.detail.value
+    })
+  },
+  reserve_telephoneInput: function (e) {
+    this.setData({
+      reserve_telephone: e.detail.value
+    })
+  },
+  contentInput: function (e) {
+    this.setData({
+      content: e.detail.value
+    })
+  },
   tijiao: function () {
+    console.log("校区"+this.data.campus+"宿舍楼号" + this.data.dormitory + "区" + this.data.district + "宿舍号" + this.data.dormnumber+"联系电话"+this.data.reserve_telephone+"预留姓名"+this.data.name+"预留电话"+this.data.telephone+"内容"+this.data.content )
     wx.showModal({
       content: '弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行内',
       showCancel: false,

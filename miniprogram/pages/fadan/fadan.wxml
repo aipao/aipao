@@ -22,7 +22,7 @@
                     <view class="weui-label">宿舍楼号：</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <input class="weui-input" name="dormitory" bindtap="dormitoryInput" placeholder="例如：5号楼"/>
+                    <input class="weui-input" name="dormitory" bindinput="dormitoryInput" placeholder="例如：5号楼"/>
                 </view>
             </view>
             <view class="weui-cell weui-cell_input">
