@@ -1,0 +1,25 @@
+page,
+.page,
+.page__bd{
+    height: 100%;
+}
+.page__bd{
+    padding-bottom: 0;
+}
+.button-sp-area{
+    
+    padding-right: 0px;
+    width: 100%;
+}
+.weui__tiao{
+  float:right;
+  margin: 0px;
+  padding: 0px;
+  color: greenyellow;
+  
+}
+.weui_jiedan{
+  text-align: center;
+  font-size: 30px;
+  color:cornflowerblue; 
+}

@@ -1,0 +1,71 @@
+<wxs src="xiangqing.wxs" module="tools" />
+<view class="page">
+    <view class="page__bd">
+        <view class="weui-tab">
+            <view class="weui-navbar">
+                <block wx:for="{{tabs}}" wx:key="*this">
+                    <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+                        <view class="weui-navbar__title">{{item}}</view>
+                    </view>
+                </block>
+                <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+            </view>
+            <view class="weui-tab__panel">
+                <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+                  <view wx:key="*this" wx:for="{{all}}">
+                    <view wx:if="{{item.state=='1'}}">
+                      <navigator url="/pages/jie/juti/juti?_id={{item._id}}">
+                        <view class="weui-panel" >
+                            <view class="weui-panel__hd"><icon type="waiting" size="27"></icon>{{item.createdate}}</view>
+                            <view class="weui-panel__bd">
+                              <view class="weui-media-box weui-media-box_text">
+                                <view class="weui-media-box__title weui-media-box__title_in-text">
+                                  <view wx:if="{{item.district!='无'}}">{{item.dormitory}} {{item.district}} {{item.dormnumber}}</view>
+                                  <view wx:else>{{item.dormitory}} {{item.dormnumber}}</view>
+                                </view>
+                                <view class="weui-media-box__desc">{{tools.sub(item.content)}}</view>
+                              </view>
+                            </view>
+                        </view>
+                      </navigator>
+                    </view>
+                 </view>
+                </view>
+                <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+                  <view wx:key="*this" wx:for="{{all}}">
+                    <view wx:if="{{item.state=='2'}}">
+                      <navigator url="/pages/jie/juti/juti?_id={{item._id}}">
+                        <view class="weui-panel">
+                            <view class="weui-panel__hd"><icon type="waiting" size="27"></icon>{{item.createdate}}</view>
+                            <view class="weui-panel__bd">
+                              <view class="weui-media-box weui-media-box_text">
+                                <view class="weui-media-box__title weui-media-box__title_in-text">
+                                  <view wx:if="{{item.district!='无'}}">{{item.dormitory}} {{item.district}} {{item.dormnumber}}</view>
+                                  <view wx:else>{{item.dormitory}} {{item.dormnumber}}</view>
+                                </view>
+                                <view class="weui-media-box__desc">{{tools.sub(item.content)}}</view>
+                              </view>
+                            </view>
+                        </view>
+                      </navigator>
+                    </view>
+                   </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="weui-grids" style="position:fixed; bottom:0;width:100%;height:15%;">
+    <navigator url="/pages/jie/index/index" class="weui-grid" >
+        <image class="weui-grid__icon" src="../../../images/index.png"/>
+        <view class="weui-grid__label">接单大厅</view>
+    </navigator>
+    <navigator url="/pages/jie/xiangqing/xiangqing" class="weui-grid">
+        <image class="weui-grid__icon" src="../../../images/faselect.png" />
+        <view class="weui-grid__label">接单记录</view>
+    </navigator>
+    <navigator url="/pages/jie/sign/sign" class="weui-grid">
+        <image class="weui-grid__icon" src="../../../images/sign.png" />
+        <view class="weui-grid__label">个人信息</view>
+    </navigator>
+</view>

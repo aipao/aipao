@@ -1,0 +1,6 @@
+
+.weui_jiedan{
+  text-align: center;
+  font-size: 30px;
+  color:cornflowerblue; 
+}

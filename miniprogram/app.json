@@ -1,15 +1,22 @@
 {
   "pages": [
-    "pages/index/index",
+    
+    "pages/fa/index/index",
+    "pages/fa/fadan/fadan",
+    "pages/fa/sign/sign",
+    "pages/fa/xiangqing/xiangqing",
+    "pages/fa/register/register",
+    "pages/jie/index/index",
+    "pages/jie/juti/juti",
+    "pages/jie/sign/sign",
+    "pages/jie/xiangqing/xiangqing",
     "pages/userConsole/userConsole",
     "pages/storageConsole/storageConsole",
     "pages/databaseGuide/databaseGuide",
     "pages/addFunction/addFunction",
     "pages/deployFunctions/deployFunctions",
     "pages/chooseLib/chooseLib",
-    "pages/openapi/openapi",
-    "pages/fadan/fadan",
-    "pages/sign/sign"
+    "pages/openapi/openapi"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -17,31 +24,6 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
     "navigationBarTitleText": "96校园代跑"
-  },
-  "tabBar": {
-    "color": "#a9b7b7",
-    "selectedColor": "#11cd6e",
-    "borderStyle": "black",
-    "list": [
-      {
-        "selectedIconPath": "images/indexselect.png",
-        "iconPath": "images/index.png",
-        "pagePath": "pages/index/index",
-        "text": "历史记录"
-      },
-      {
-        "selectedIconPath": "images/fase.png",
-        "iconPath": "images/fa.png",
-        "pagePath": "pages/fadan/fadan",
-        "text": "我要发单"
-      },
-      {
-        "selectedIconPath": "images/signselect.png",
-        "iconPath": "images/sign.png",
-        "pagePath": "pages/sign/sign",
-        "text": "个人信息"
-      }
-    ]
   },
   "sitemapLocation": "sitemap.json"
 }
