@@ -11,7 +11,6 @@ Page({
   onLoad: function() {
     var that = this;
     //登录获取用户信息
-    
     // 调用云函数
     wx.showLoading({
       title: '加载中',
@@ -20,27 +19,25 @@ Page({
     /*setTimeout(function () {
       wx.hideLoading()
     }, 1000)*/
-    wx.cloud.callFunction({
-      name: 'login',
-      data: {},
-      success: res => {
-        console.log('[云函数] [login] user openid: ', res.result.openid)
-        app.globalData.openid = res.result.openid;
-        //根据opendid查询发单记录，这里默认state=0,但是查询时暂时没用state这个属性，我感觉可以将所有的单查询到本地再页面显示的时候去过滤单的状态。避免反复查询数据库网络延迟
-        that.getHistory(res.result.openid, 0);
-      },
-      fail: err => {
-        console.error('[云函数] [login] 调用失败', err)
-      }
-    })
-    wx.getUserInfo({
-      withCredentials: false,
-      success: res => {
-        app.globalData.userInfo = res.userInfo;
-        console.log(app.globalData.userInfo.nickName);
-      }
-    })
-
+    if (app.globalData.openid  == null) {
+      console.log("没有openid" + app.globalData.openid);
+      wx.cloud.callFunction({
+        name: 'login',
+        data: {},
+        success: res => {
+          console.log('[云函数] [login] user openid: ', res.result.openid)
+          app.globalData.openid = res.result.openid;
+          //根据opendid查询发单记录，这里默认state=0,但是查询时暂时没用state这个属性，我感觉可以将所有的单查询到本地再页面显示的时候去过滤单的状态。避免反复查询数据库网络延迟
+          that.getHistory(res.result.openid, 0);
+        },
+        fail: err => {
+          console.error('[云函数] [login] 调用失败', err)
+        }
+      })
+    } else {
+      console.log("有openid" + app.globalData.openid);
+      that.getHistory(app.globalData.openid, 0);
+    }
     wx.getSystemInfo({
       success: function(res) {
         that.setData({
@@ -103,6 +100,11 @@ function mylogin() {
   wx.showLoading({
     title: '加载中',
   });
+  if (app.globalData.openid){
+    console.log("没有openid");
+  }else{
+    console.log("有openid");
+  }
   wx.cloud.callFunction({
     name: 'login',
     data: {},
