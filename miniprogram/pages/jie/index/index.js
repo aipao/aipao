@@ -55,68 +55,86 @@ Page({
    * 添加接单
    */
   cancleCollected: function (e) {
-    
-    tianjia(e.currentTarget.id);   
-    
+
+    var openid = app.globalData.openid;//openId
+
+    wx.cloud.callFunction({
+      name: 'jie_xinxi',
+      data: {
+        openid: openid,
+      },
+      success: res => {
+        this.setData({
+          telephone: res.result[0].telephone
+        })
+        console.log(res.result[0].telephone);
+        console.log(this.data.telephone);
+        wx.cloud.callFunction({
+
+          name: 'tianjia',
+          data: {
+            id: e.currentTarget.id,
+            openid: openid,
+            date: utils.formatTime(new Date()),
+            jie_telephone: this.data.telephone
+          },
+          success: res => {
+
+
+            if (res.result.stats.updated == 0) {
+              wx.showModal({
+                content: '手慢了哦！此单已经接走啦！！！',
+                title: '提示',
+                showCancel: false,
+                success: function (resss) {
+                  if (resss.confirm) {
+                    wx.navigateTo({
+                      url: '../xiangqing/xiangqing',
+                      success: function (e) {
+                        var page = getCurrentPages().pop();
+                        if (page == undefined || page == null) return;
+                        page.onLoad();
+                      }
+                    });
+                  }
+                }
+              })
+            } else {
+              wx.showModal({
+                content: '接单成功',
+                showCancel: false,
+                success: function (ress) {
+                  if (ress.confirm) {
+                    wx.navigateTo({
+                      url: '../xiangqing/xiangqing',
+                      success: function (e) {
+                        var page = getCurrentPages().pop();
+                        if (page == undefined || page == null) return;
+                        page.onLoad();
+                      }
+                    });
+                  }
+                }
+              });
+            }
+            console.log('返回值' + JSON.stringify(res.result));
+          },
+          fail: err => {
+            wx.showToast({
+              icon: 'none',
+              title: '提交失败，稍后再试',
+            })
+            console.error('[云函数] [sum] 调用失败：', err)
+          }
+        })
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '获取数据失败',
+        })
+        console.error('[云函数] [history] 调用失败：', err)
+      }
+    });
   },
 });
-
-function tianjia(id,telephone) {
-
-  var openid = app.globalData.openid;//openId
-  wx.cloud.callFunction({
-    name: 'tianjia',
-    data: {
-      id: id,
-      openid: openid,
-      date: utils.formatTime(new Date()),
-      jie_telephone: telephone
-    },
-    success: res => {
-      if(res.result.stats.updated==0){
-           wx.showModal({
-             content: '手慢了哦！此单已经接走啦！！！',
-             title: '提示',
-             showCancel: false,
-             success: function(resss){
-               if(resss.confirm){
-                 wx.navigateTo({
-                   url: '../xiangqing/xiangqing',
-                   success: function (e) {
-                     var page = getCurrentPages().pop();
-                     if (page == undefined || page == null) return;
-                     page.onLoad();
-                   }
-                 });
-               }
-             }
-           })
-      }else{
-      wx.showModal({
-        content: '接单成功',
-        showCancel: false,
-        success: function (ress) {
-          if (ress.confirm) {
-            wx.navigateTo({
-              url: '../xiangqing/xiangqing',
-              success: function (e) {
-                var page = getCurrentPages().pop();
-                if (page == undefined || page == null) return;
-                page.onLoad();
-              }
-            });
-          }
-        }
-      });
-      }
-      console.log('返回值' + JSON.stringify(res.result));
-    },
-    fail: err => {
-      wx.showToast({
-        icon: 'none',
-        title: '提交失败，稍后再试',
-      })
-      console.error('[云函数] [sum] 调用失败：', err)
-    }
-  })
-}

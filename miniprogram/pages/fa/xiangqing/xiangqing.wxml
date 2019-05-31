@@ -10,6 +10,12 @@
                       </view>
                   </view>
               </view>
+              <view class="weui-form-preview__hd">
+                <view class="weui-form-preview__item">
+                  <view class="weui-form-preview__label">骑手电话</view>
+                  <view class="weui-form-preview__value" style='font-size:20px'>{{item.jie_telephone}}</view>
+                </view>
+              </view>
           </view>
       </view>
   </view>

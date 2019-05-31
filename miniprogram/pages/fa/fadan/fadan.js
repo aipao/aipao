@@ -208,7 +208,7 @@ function fadan(campus, dormitory, district, dormnumber, reserve_telephone, name,
     },
     success: res => {
        wx.showModal({
-      content: '发单成功，请耐心等待接单',
+      content: '体验版不需要付钱哦',
       showCancel: false,
       success: function (res) {
         console.log('123')
