@@ -24,6 +24,29 @@ Page({
     time: "12:01",
     isAgree: false
   },
+  onLoad:function (){
+    var wx_nickname = app.globalData.userInfo
+    if (wx_nickname == null) {
+      wx.showModal({
+        content: '请先登录',
+        showCancel: false,
+        success: function (res) {
+          console.log('123')
+         
+          if (res.confirm) {
+            console.log('用户点击确定')
+            wx.navigateTo({
+              url: '../sign/sign',
+              success: function (e) {
+                var page = getCurrentPages().pop();
+              }
+            });
+          }
+        }
+      });
+      return;
+    }
+  },
   radio: function (e) {
     this.setData({
       guige_key02: e.currentTarget.dataset.id
@@ -190,6 +213,7 @@ function fadan(campus, dormitory, district, dormnumber, reserve_telephone, name,
   var state = 0;//单状态
   var openid = app.globalData.openid;//openId
   var wx_nickname = app.globalData.userInfo.nickName;
+  
   wx.cloud.callFunction({
     name: 'fadan',
     data: {
